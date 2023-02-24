@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SiteContact extends Model
+class ContactReasons extends Model
 {
-    protected $fillable = ['name', 'phone', 'email', 'reason', 'message'];
     use HasFactory;
+    protected $fillable = ['reason'];
 }
