@@ -9,6 +9,7 @@ use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\TestController;
+use App\Http\Middleware\LogAccessMiddleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,7 @@ use App\Http\Controllers\TestController;
 |
 */
 
-Route::get('/', [MainController::class, 'main'])->name('site.index');
+Route::middleware('log.access')->get('/', [MainController::class, 'main'])->name('site.index');
 Route::get('/sobre', [AboutController::class, 'main'])->name('site.about');
 
 Route::get('/contato', [ContactController::class, 'main'])->name('site.contact');
@@ -29,7 +30,7 @@ Route::post('/contato', [ContactController::class, 'save'])->name('site.contact'
 
 Route::get('/login', [LoginController::class, 'main'])->name('site.login');
 
-Route::prefix('/app')->group( function(){
+Route::middleware('authenticate:default')->prefix('/app')->group( function(){
     Route::get('/clientes', [ClientsController::class, 'main'])->name('app.clients');
     Route::get('/fornecedores', [SupplierController::class, 'main'])->name('app.suppliers');
     Route::get('/produtos', [ProductsController::class, 'main'])->name('app.products');
