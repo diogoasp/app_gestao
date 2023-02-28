@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ClientsController extends Controller
+class HomeController extends Controller
 {
     public function main(){
-        return view('app.clients', ['title' => 'Clientes']) ;
+        return view('app.home', ['title' => "Home"]);
     }
 }

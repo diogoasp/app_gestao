@@ -10,6 +10,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\TestController;
 use App\Http\Middleware\LogAccessMiddleware;
+use App\Http\Middleware\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,12 +29,15 @@ Route::get('/sobre', [AboutController::class, 'main'])->name('site.about');
 Route::get('/contato', [ContactController::class, 'main'])->name('site.contact');
 Route::post('/contato', [ContactController::class, 'save'])->name('site.contact');
 
-Route::get('/login', [LoginController::class, 'main'])->name('site.login');
+Route::get('/login/{erro?}', [LoginController::class, 'main'])->name('site.login');
+Route::post('/login', [LoginController::class, 'authenticate'])->name('site.login');
 
 Route::middleware('authenticate:default')->prefix('/app')->group( function(){
-    Route::get('/clientes', [ClientsController::class, 'main'])->name('app.clients');
-    Route::get('/fornecedores', [SupplierController::class, 'main'])->name('app.suppliers');
-    Route::get('/produtos', [ProductsController::class, 'main'])->name('app.products');
+    Route::get('/home', [HomeController::class, 'main'])->name('app.home');
+    Route::get('/sair', [LoginController::class, 'exit'])->name('app.exit');
+    Route::get('/cliente', [ClientsController::class, 'main'])->name('app.client');
+    Route::get('/fornecedor', [SupplierController::class, 'main'])->name('app.supplier');
+    Route::get('/produto', [ProductsController::class, 'main'])->name('app.product');
 });
 
 Route::fallback(function(){
