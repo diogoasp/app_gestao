@@ -10,7 +10,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\TestController;
 use App\Http\Middleware\LogAccessMiddleware;
-use App\Http\Middleware\HomeController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,8 +36,18 @@ Route::middleware('authenticate:default')->prefix('/app')->group( function(){
     Route::get('/home', [HomeController::class, 'main'])->name('app.home');
     Route::get('/sair', [LoginController::class, 'exit'])->name('app.exit');
     Route::get('/cliente', [ClientsController::class, 'main'])->name('app.client');
+
     Route::get('/fornecedor', [SupplierController::class, 'main'])->name('app.supplier');
-    Route::get('/produto', [ProductsController::class, 'main'])->name('app.product');
+    Route::post('/fornecedor/listar', [SupplierController::class, 'list'])->name('app.supplier.list');
+    Route::get('/fornecedor/listar', [SupplierController::class, 'list'])->name('app.supplier.list');
+    Route::get('/fornecedor/adicionar', [SupplierController::class, 'add'])->name('app.supplier.add');
+    Route::post('/fornecedor/adicionar', [SupplierController::class, 'add'])->name('app.supplier.add');
+    Route::get('/fornecedor/editar/{id}/{msg?}', [SupplierController::class, 'edit'])->name('app.supplier.edit');
+    Route::delete('/fornecedor/deletar/{id}', [SupplierController::class, 'delete'])->name('app.supplier.delete');
+
+    Route::resource('produto', ProductsController::class);
+    // Route::get('/produto', [ProductsController::class, 'index'])->name('app.product');
+    // Route::get('/produto/novo', [ProductsController::class, 'create'])->name('app.product.create');
 });
 
 Route::fallback(function(){

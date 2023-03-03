@@ -32,7 +32,7 @@
     <select name="reason_id" class="{{ $class }}">
         <option value="" >Qual o motivo do contato?</option>
         @foreach ($reason as $key => $value)
-            <option value="{{$value->id}}" {{old('reason')==$key ? 'selected' : null}}>{{$value->reason_id}}</option>        
+            <option value="{{$value->id}}" {{old('reason')==$key ? 'selected' : null}}>{{$value->reason}}</option>        
         @endforeach
     </select>
     @if ($errors->has('reason_id'))

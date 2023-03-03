@@ -1,39 +1,32 @@
-<h1>Fornecedores (view)</h1>
+@extends('app.layouts.default')
+@section('title', $title)
 
-{{-- Cometários no Blade --}}
+@section('main')
+<div class="conteudo-pagina">
+    <div class="titulo-pagina-2 ">
+        <p>Fornecedor</p>
+    </div>
 
-<ul>
-    <li> <a href="{{ route('site.index') }}">Início</a> </li>
-    <li> <a href="{{ route('site.about') }}">Sobre</a> </li>
-    <li> <a href="{{ route('site.contact') }}">Contato</a> </li>
-    <li> <a href="{{ route('site.login') }}">Entrar</a> </li>
-</ul>
+    <div class="menu">
+        <ul>
+            <li> <a href="{{ route('app.supplier.add') }}">Novo</a> </li>
+             <li> <a href="{{ route('app.supplier') }}">Consulta</a> </li>
+        </ul>
+    </div>
 
-{{-- @dd($suppliers) --}}
+    <div class="informacao-pagina">
+        <div style='width:30%; margin: auto' >
+            <form action="{{ route('app.supplier.list') }}" method="post">
+            @csrf
+                <input type="text" name="name" id="" placeholder="Nome" class="borda-preta">
+                <input type="text" name="site" id="" placeholder="Site" class="borda-preta">
+                <input type="text" name="uf" id="" placeholder="UF" class="borda-preta">
+                <input type="text" name="email" id="" placeholder="E-mail" class="borda-preta">
+                <button type="submit" class="borda-preta" >Pesquisar</button>
+            </form>
+        </div>
+    </div>
+</div>    
 
-{{-- Existe o comando @unless que é a inversão do if. É um !if --}}
-{{-- Existe o comando @isset que funciona como o isset do php padrão, mas de forma direta, não precisa estar dentro de if --}}
-{{-- @empty tal qual @isset --}}
-@if(count($suppliers) > 0 && count($suppliers) < 10)
-    <h3>Existem alguns fornecedores cadastrados.</h3>
-@elseif(count($suppliers) > 10)
-    <h3>Existem vários fornecedores cadastrados.</h3>
-@else
-    <h3>Ainda não existem fornecedores cadastrados.</h3>
-@endif
 
-@isset($suppliers)
-    @foreach ($suppliers as $supplier)
-
-    {{-- Dentro de loops sem iterador explícito há a opção de usar o $loop para capturar essa informação com ->interation, ->first, ->last --}}
-        @if($loop->first) 
-            Primeira iteração.
-        @endif
-        Fornecedor: {{$supplier['nome']}}
-        <br>
-        Status: {{$supplier['status']}}
-        <br>
-        CNPJ: {{$supplier['CNPJ'] ?? 'Dado não preenchido.'}}
-        <hr>
-    @endforeach
-@endisset
+@endsection
