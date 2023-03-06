@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class ProdutController extends Controller
+class ProductDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,7 +35,7 @@ class ProdutController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product): Response
+    public function show(string $id): Response
     {
         //
     }
@@ -44,7 +43,7 @@ class ProdutController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product): Response
+    public function edit(string $id): Response
     {
         //
     }
@@ -52,7 +51,7 @@ class ProdutController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product): RedirectResponse
+    public function update(Request $request, string $id): RedirectResponse
     {
         //
     }
@@ -60,7 +59,7 @@ class ProdutController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product): RedirectResponse
+    public function destroy(string $id): RedirectResponse
     {
         //
     }

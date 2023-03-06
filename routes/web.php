@@ -1,17 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MainController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\AboutController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\ClientsController;
-use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\ProductsController;
-use App\Http\Controllers\TestController;
 use App\Http\Middleware\LogAccessMiddleware;
-use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\{
+                          MainController,
+                          ContactController, 
+                          AboutController, 
+                          LoginController, 
+                          ClientsController, 
+                          SupplierController, 
+                          ProductsController, 
+                          ProductDetailController,
+                          TestController,
+                          HomeController
+                        };
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,7 +47,9 @@ Route::middleware('authenticate:default')->prefix('/app')->group( function(){
     Route::get('/fornecedor/editar/{id}/{msg?}', [SupplierController::class, 'edit'])->name('app.supplier.edit');
     Route::delete('/fornecedor/deletar/{id}', [SupplierController::class, 'delete'])->name('app.supplier.delete');
 
-    Route::resource('produto', ProductsController::class);
+    Route::resource('/produto', ProductsController::class);
+    Route::resource('/produto-detalhe', ProductDetailController::class);
+
     // Route::get('/produto', [ProductsController::class, 'index'])->name('app.product');
     // Route::get('/produto/novo', [ProductsController::class, 'create'])->name('app.product.create');
 });
