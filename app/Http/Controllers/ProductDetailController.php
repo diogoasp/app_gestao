@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\ProductDetail;
+use App\Models\Unit;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,7 +23,11 @@ class ProductDetailController extends Controller
      */
     public function create(): Response
     {
-        //
+        $units = array();
+        foreach (Unit::all() as $u) {
+            $units[$u->id] = $u->description; 
+        }
+        return response()->view('app.product-detail.create', ['units' => $units], 200);
     }
 
     /**
@@ -29,7 +35,8 @@ class ProductDetailController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        //
+        ProductDetail::create($request->all());
+        return $redirect()->route('produto-detalhe.index');
     }
 
     /**
