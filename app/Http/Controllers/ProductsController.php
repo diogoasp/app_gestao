@@ -17,10 +17,7 @@ class ProductsController extends Controller
     public function index(Request $request): Response
     {
         Paginator::useBootstrap();
-        $units = array();
-        foreach (Unit::all() as $u) {
-            $units[$u->id] = $u->description; 
-        }
+        $units = Unit::pluck('description', 'id');
         $products = Product::paginate(10);
         return response()->view('app.products.index', ['title' => 'Lista de produtos', 'products' => $products, 'units' => $units, 'request' => $request->all()],200);
     }
@@ -30,10 +27,7 @@ class ProductsController extends Controller
      */
     public function create(): Response
     {
-        $units = array();
-        foreach (Unit::all() as $u) {
-            $units[$u->id] = $u->description; 
-        }
+        $units = Unit::pluck('description', 'id');
         return response()->view('app.products.create', ['units' => $units],200);
     }
 
@@ -68,10 +62,7 @@ class ProductsController extends Controller
      */
     public function show(Product $produto): Response
     {
-        $units = array();
-        foreach (Unit::all() as $u) {
-            $units[$u->id] = $u->description; 
-        }
+        $units = Unit::pluck('description', 'id');
         return response()->view('app.products.show', ['product' => $produto, 'units' => $units ], 200);
     }
 
@@ -80,10 +71,7 @@ class ProductsController extends Controller
      */
     public function edit(Product $produto): Response
     {
-        $units = array();
-        foreach (Unit::all() as $u) {
-            $units[$u->id] = $u->description; 
-        }
+        $units = Unit::pluck('description', 'id');
         return response()->view('app.products.edit', ['product' => $produto, 'units' => $units ], 200);
     }
 
